@@ -1,2 +1,3 @@
 # Bluetooth-Earphones-Example
-This is the repository for FsmPro design files and code files.
+
+Please find the design files and code files for the Bluetooth example.

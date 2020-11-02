@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RfsmProject>
+    <ProjectFiles>
+Bluetooth_Controller
+    Main Module
+        MicroController
+            BT Logic
+                stm_power_on
+            BLE Interface
+</ProjectFiles>
+    <SceneData version="v1.0">
+        <GraphicsItemList>
+            <Process level="1" Nos="1" id="1" label="Bluetooth_Controller" parentId="1" grandParentId="1" xCoord="300" yCoord="300" width="300" height="1000" shape="1" code="" description="" backgroundColour="#ff3244" polygon="0,0,300,0,300,1000,0,1000,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="0"/>
+            <DataflowItems number="0"/>
+            <Process level="2" Nos="1" id="1" label="Main Module" parentId="1" grandParentId="1" xCoord="300" yCoord="300" width="300" height="250" shape="1" code="" description="" backgroundColour="#fec309" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="0"/>
+            <DataflowItems number="0"/>
+            <Process level="3" Nos="1" id="1" label="MicroController" parentId="1" grandParentId="1" xCoord="301" yCoord="309" width="300" height="250" shape="1" code="" description="" backgroundColour="#fec309" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="3">
+                <Link level="4" parentId="1" grandParentId="1" xCoord="535.318" yCoord="373.815" label="secondDependency()" description="" datatype="" startItem="BLE Interface" endItem="BT Logic" backgroundColour="#55aaff" polygon="0,0,192,0,192,22,0,22,0,0"/>
+                <Link level="4" parentId="1" grandParentId="1" xCoord="523.808" yCoord="253.885" label="firstDependency()" description="" datatype="uint_32" startItem="BLE Interface" endItem="BT Logic" backgroundColour="#e5e7e9" polygon="0,0,186,0,186,22,0,22,0,0"/>
+                <Link level="4" parentId="1" grandParentId="1" xCoord="541.885" yCoord="494.962" label="reverseDependency" description="" datatype="" startItem="BT Logic" endItem="BLE Interface" backgroundColour="#55aa00" polygon="0,0,186,0,186,22,0,22,0,0"/>
+            </LinkItems>
+            <MemoryItems number="0"/>
+            <DataflowItems number="0"/>
+            <Process level="4" Nos="2" id="1" label="BT Logic" parentId="1" grandParentId="1" xCoord="47" yCoord="261" width="300" height="250" shape="1" code="" description="" backgroundColour="#fec309" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="0"/>
+            <DataflowItems number="0"/>
+            <Process level="5" Nos="1" id="1" label="stm_power_on" parentId="1" grandParentId="1" xCoord="502" yCoord="315" width="300" height="250" shape="1" code="" description="" backgroundColour="#fc0127" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="2">
+                <Memory level="6" parentId="1" grandParentId="1" xCoord="148.294" yCoord="16.5175" label=" prev_addr" description="" datatype="unsigned long long int" backgroundColour="#c0c0c0" polygon="0,0,216,0,216,64,0,64,0,0"/>
+                <Memory level="6" parentId="1" grandParentId="1" xCoord="397.777" yCoord="17.0278" label="_global_conn_status" description="" datatype="bool" backgroundColour="#c0c0c0" polygon="0,0,198,0,198,64,0,64,0,0"/>
+            </MemoryItems>
+            <DataflowItems number="0"/>
+            <StateItems number="4">
+                <StateItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>attempt_connection</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>965</xCoord>
+                    <yCoord>288</yCoord>
+                    <width>408</width>
+                    <height>150</height>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <polygon>0,0,408,0,408,150,0,150,0,0</polygon>
+                    <action>/* Try to connect with the previously paired device */
+bool connect_status = attempt_conn(prev_addr);
+</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Case when the previously connected device is available for connection,Case when the connection fails</transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>power_on</label>
+                    <ifInitialState>1</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>54</xCoord>
+                    <yCoord>293</yCoord>
+                    <width>408</width>
+                    <height>127</height>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <polygon>0,0,408,0,408,127,0,127,0,0</polygon>
+                    <action>/* Attempt to connect to a previously paired device */
+
+prev_addr = getPrevDevAddress();</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Case when the previously connected device is available for connection,Case when no previously paired device was found</transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>open_to_connect</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>931</xCoord>
+                    <yCoord>642</yCoord>
+                    <width>485</width>
+                    <height>191</height>
+                    <backgroundColour>#55aa00</backgroundColour>
+                    <polygon>0,0,485,0,485,191,0,191,0,0</polygon>
+                    <action>bool local_conn_status = false;
+
+/* Let other paired devices know that earphones is available for pairing */
+broadcast_as_available();
+
+if (true == request_rx()){
+    unsigned long long int req_addr = getReqDevAddress();
+    local_conn_status = attempt_conn(req_addr);
+}</action>
+                    <description></description>
+                    <numberOfTI>4</numberOfTI>
+                    <transitions>Case when the connection fails,Case when no previously paired device was found,Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>connected</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>1583</xCoord>
+                    <yCoord>869</yCoord>
+                    <width>370</width>
+                    <height>232</height>
+                    <backgroundColour>#00aaff</backgroundColour>
+                    <polygon>0,0,370,0,370,232,0,232,0,0</polygon>
+                    <action>static int err_counter = 0;
+if(false == _global_conn_status)
+{
+    _global_conn_status = true;
+    enable_playback(true);
+}
+
+/* checking for error in connection here */
+if(true == error_occurred()){
+    err_counter++;
+}
+</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                </StateItem>
+            </StateItems>
+            <TransitionItems number="5">
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when the previously connected device is available for connection</label>
+                    <condition>(prev_addr != 0) &amp;&amp; (true == isDeviceAvailable(prev_addr))</condition>
+                    <backgroundColour>#ffaa00</backgroundColour>
+                    <xCoord>475.26</xCoord>
+                    <yCoord>149.863</yCoord>
+                    <midPos>713.5,359.5</midPos>
+                    <width>498</width>
+                    <height>80</height>
+                    <polygon>0,0,498,0,498,80,0,80,0,0</polygon>
+                    <startItem>power_on</startItem>
+                    <endItem>attempt_connection</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when the connection fails</label>
+                    <condition>false == connect_status</condition>
+                    <backgroundColour>#ff0000</backgroundColour>
+                    <xCoord>1039.68</xCoord>
+                    <yCoord>493.795</yCoord>
+                    <midPos>1171,550</midPos>
+                    <width>264</width>
+                    <height>80</height>
+                    <polygon>0,0,264,0,264,80,0,80,0,0</polygon>
+                    <startItem>attempt_connection</startItem>
+                    <endItem>open_to_connect</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when no previously paired device was found</label>
+                    <condition>(prev_addr == 0) || (false == isDeviceAvailable(prev_addr))</condition>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <xCoord>141.341</xCoord>
+                    <yCoord>597.477</yCoord>
+                    <midPos>715.5,546.5</midPos>
+                    <width>438</width>
+                    <height>80</height>
+                    <polygon>0,0,438,0,438,80,0,80,0,0</polygon>
+                    <startItem>power_on</startItem>
+                    <endItem>open_to_connect</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when connection with the requestor device is successful</label>
+                    <condition>(true == local_conn_status)</condition>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <xCoord>954.111</xCoord>
+                    <yCoord>887.111</yCoord>
+                    <midPos>1470.5,861</midPos>
+                    <width>444</width>
+                    <height>96</height>
+                    <polygon>0,0,444,0,444,96,0,96,0,0</polygon>
+                    <startItem>open_to_connect</startItem>
+                    <endItem>connected</endItem>
+                    <description></description>
+                    <action>
+</action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Connection error confirmed </label>
+                    <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
+                    <backgroundColour>#ff0000</backgroundColour>
+                    <xCoord>1613.48</xCoord>
+                    <yCoord>736.879</yCoord>
+                    <midPos>1470.5,861</midPos>
+                    <width>300</width>
+                    <height>96</height>
+                    <polygon>0,0,300,0,300,96,0,96,0,0</polygon>
+                    <startItem>connected</startItem>
+                    <endItem>open_to_connect</endItem>
+                    <description></description>
+                    <action>_global_conn_status = false;
+enable_playback(false);</action>
+                </TransitionItem>
+            </TransitionItems>
+            <TextItems number="2">
+                <TextItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <xCoord>1013.33</xCoord>
+                    <yCoord>18.1225</yCoord>
+                    <width>225</width>
+                    <height>75</height>
+                    <type>1</type>
+                    <backgroundColour>#ffffff</backgroundColour>
+                    <textColour>#000000</textColour>
+                    <polygon>0,0,225,0,225,75,0,75,0,0</polygon>
+                    <action>#include &quot;ble_interface.h&quot;</action>
+                </TextItem>
+                <TextItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <xCoord>1267.5</xCoord>
+                    <yCoord>18</yCoord>
+                    <width>276</width>
+                    <height>75</height>
+                    <type>2</type>
+                    <backgroundColour>#ffffff</backgroundColour>
+                    <textColour>#000000</textColour>
+                    <polygon>0,0,276,0,276,75,0,75,0,0</polygon>
+                    <action>#define MAX_CONN_ERROR_RETRY	60 </action>
+                </TextItem>
+            </TextItems>
+            <Process level="4" Nos="2" id="2" label="BLE Interface" parentId="1" grandParentId="1" xCoord="892" yCoord="265" width="300" height="250" shape="1" code="" description="" backgroundColour="#fec309" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="0"/>
+            <DataflowItems number="0"/>
+        </GraphicsItemList>
+    </SceneData>
+</RfsmProject>

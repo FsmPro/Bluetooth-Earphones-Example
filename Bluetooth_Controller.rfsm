@@ -56,8 +56,8 @@ Bluetooth_Controller
 bool connect_status = attempt_conn(prev_addr);
 </action>
                     <description></description>
-                    <numberOfTI>2</numberOfTI>
-                    <transitions>Case when the previously connected device is available for connection,Case when the connection fails</transitions>
+                    <numberOfTI>3</numberOfTI>
+                    <transitions>Case when the previously connected device is available for connection,Case when the connection fails,Case when the connection succeeds</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
@@ -134,11 +134,11 @@ if(true == error_occurred()){
 }
 </action>
                     <description></description>
-                    <numberOfTI>2</numberOfTI>
-                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                    <numberOfTI>3</numberOfTI>
+                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed ,Case when the connection succeeds</transitions>
                 </StateItem>
             </StateItems>
-            <TransitionItems number="5">
+            <TransitionItems number="6">
                 <TransitionItem>
                     <level>6</level>
                     <parentId>1</parentId>
@@ -219,8 +219,8 @@ if(true == error_occurred()){
                     <label>Connection error confirmed </label>
                     <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
                     <backgroundColour>#ff0000</backgroundColour>
-                    <xCoord>1613.48</xCoord>
-                    <yCoord>736.879</yCoord>
+                    <xCoord>1499</xCoord>
+                    <yCoord>680.855</yCoord>
                     <midPos>1470.5,861</midPos>
                     <width>300</width>
                     <height>96</height>
@@ -230,6 +230,24 @@ if(true == error_occurred()){
                     <description></description>
                     <action>_global_conn_status = false;
 enable_playback(false);</action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>1</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when the connection succeeds</label>
+                    <condition>true == connect_status</condition>
+                    <backgroundColour>#00aa00</backgroundColour>
+                    <xCoord>1607.85</xCoord>
+                    <yCoord>328.866</yCoord>
+                    <midPos>1468.5,674</midPos>
+                    <width>282</width>
+                    <height>80</height>
+                    <polygon>0,0,282,0,282,80,0,80,0,0</polygon>
+                    <startItem>attempt_connection</startItem>
+                    <endItem>connected</endItem>
+                    <description></description>
+                    <action></action>
                 </TransitionItem>
             </TransitionItems>
             <TextItems number="2">

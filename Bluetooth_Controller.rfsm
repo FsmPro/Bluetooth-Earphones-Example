@@ -6,6 +6,7 @@ Bluetooth_Controller
         MicroController
             BT Logic
                 stm_power_on
+                stm_power_interrupt
             BLE Interface
 </ProjectFiles>
     <SceneData version="v1.0">
@@ -30,7 +31,7 @@ Bluetooth_Controller
             <LinkItems number="0"/>
             <MemoryItems number="0"/>
             <DataflowItems number="0"/>
-            <Process level="5" Nos="1" id="1" label="stm_power_on" parentId="1" grandParentId="1" xCoord="502" yCoord="315" width="300" height="250" shape="1" code="" description="" backgroundColour="#fc0127" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <Process level="5" Nos="2" id="1" label="stm_power_on" parentId="1" grandParentId="1" xCoord="502" yCoord="315" width="300" height="250" shape="1" code="" description="" backgroundColour="#fc0127" polygon="0,0,300,0,300,250,0,250,0,0"/>
             <LinkItems number="0"/>
             <MemoryItems number="2">
                 <Memory level="6" parentId="1" grandParentId="1" xCoord="148.294" yCoord="16.5175" label=" prev_addr" description="" datatype="unsigned long long int" backgroundColour="#c0c0c0" polygon="0,0,216,0,216,64,0,64,0,0"/>
@@ -89,7 +90,7 @@ prev_addr = getPrevDevAddress();</action>
                     <initialCondition></initialCondition>
                     <initialDescription></initialDescription>
                     <xCoord>931</xCoord>
-                    <yCoord>642</yCoord>
+                    <yCoord>643</yCoord>
                     <width>485</width>
                     <height>191</height>
                     <backgroundColour>#55aa00</backgroundColour>
@@ -117,10 +118,10 @@ if (true == request_rx()){
                     <initialDescription></initialDescription>
                     <xCoord>1583</xCoord>
                     <yCoord>869</yCoord>
-                    <width>370</width>
-                    <height>232</height>
+                    <width>342</width>
+                    <height>240</height>
                     <backgroundColour>#00aaff</backgroundColour>
-                    <polygon>0,0,370,0,370,232,0,232,0,0</polygon>
+                    <polygon>0,0,342,0,342,240,0,240,0,0</polygon>
                     <action>static int err_counter = 0;
 if(false == _global_conn_status)
 {
@@ -128,7 +129,7 @@ if(false == _global_conn_status)
     enable_playback(true);
 }
 
-/* checking for error in connection here */
+/* Checking for error in connection here */
 if(true == error_occurred()){
     err_counter++;
 }
@@ -166,7 +167,7 @@ if(true == error_occurred()){
                     <backgroundColour>#ff0000</backgroundColour>
                     <xCoord>1039.68</xCoord>
                     <yCoord>493.795</yCoord>
-                    <midPos>1171,550</midPos>
+                    <midPos>1171,550.5</midPos>
                     <width>264</width>
                     <height>80</height>
                     <polygon>0,0,264,0,264,80,0,80,0,0</polygon>
@@ -184,7 +185,7 @@ if(true == error_occurred()){
                     <backgroundColour>#e5e7e9</backgroundColour>
                     <xCoord>141.341</xCoord>
                     <yCoord>597.477</yCoord>
-                    <midPos>715.5,546.5</midPos>
+                    <midPos>715.5,547</midPos>
                     <width>438</width>
                     <height>80</height>
                     <polygon>0,0,438,0,438,80,0,80,0,0</polygon>
@@ -202,7 +203,7 @@ if(true == error_occurred()){
                     <backgroundColour>#e5e7e9</backgroundColour>
                     <xCoord>954.111</xCoord>
                     <yCoord>887.111</yCoord>
-                    <midPos>1470.5,861</midPos>
+                    <midPos>1463.5,863.5</midPos>
                     <width>444</width>
                     <height>96</height>
                     <polygon>0,0,444,0,444,96,0,96,0,0</polygon>
@@ -219,9 +220,9 @@ if(true == error_occurred()){
                     <label>Connection error confirmed </label>
                     <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
                     <backgroundColour>#ff0000</backgroundColour>
-                    <xCoord>1499</xCoord>
-                    <yCoord>680.855</yCoord>
-                    <midPos>1470.5,861</midPos>
+                    <xCoord>1502.79</xCoord>
+                    <yCoord>692.212</yCoord>
+                    <midPos>1463.5,863.5</midPos>
                     <width>300</width>
                     <height>96</height>
                     <polygon>0,0,300,0,300,96,0,96,0,0</polygon>
@@ -240,7 +241,7 @@ enable_playback(false);</action>
                     <backgroundColour>#00aa00</backgroundColour>
                     <xCoord>1607.85</xCoord>
                     <yCoord>328.866</yCoord>
-                    <midPos>1468.5,674</midPos>
+                    <midPos>1461.5,676</midPos>
                     <width>282</width>
                     <height>80</height>
                     <polygon>0,0,282,0,282,80,0,80,0,0</polygon>
@@ -256,7 +257,7 @@ enable_playback(false);</action>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
                     <xCoord>1013.33</xCoord>
-                    <yCoord>18.1225</yCoord>
+                    <yCoord>17.013</yCoord>
                     <width>225</width>
                     <height>75</height>
                     <type>1</type>
@@ -278,6 +279,297 @@ enable_playback(false);</action>
                     <textColour>#000000</textColour>
                     <polygon>0,0,276,0,276,75,0,75,0,0</polygon>
                     <action>#define MAX_CONN_ERROR_RETRY	60 </action>
+                </TextItem>
+            </TextItems>
+            <Process level="5" Nos="2" id="2" label="stm_power_interrupt" parentId="1" grandParentId="1" xCoord="1003" yCoord="313" width="300" height="250" shape="1" code="" description="" backgroundColour="#ff0000" polygon="0,0,300,0,300,250,0,250,0,0"/>
+            <LinkItems number="0"/>
+            <MemoryItems number="1">
+                <Memory level="6" parentId="2" grandParentId="1" xCoord="701.833" yCoord="29.6738" label="_global_conn_status" description="" datatype="bool" backgroundColour="#c0c0c0" polygon="0,0,198,0,198,64,0,64,0,0"/>
+            </MemoryItems>
+            <DataflowItems number="0"/>
+            <StateItems number="5">
+                <StateItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>init_power_interrupt</label>
+                    <ifInitialState>1</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>76</xCoord>
+                    <yCoord>404</yCoord>
+                    <width>540</width>
+                    <height>150</height>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <polygon>0,0,540,0,540,150,0,150,0,0</polygon>
+                    <action>if((true == powerButtonStatus) &amp;&amp; (getPressInterval() &gt; MIN_DEBOUNCE_PERIOD)) 
+{ 
+    int btn_press_duration = getPressInterval();
+}</action>
+                    <description></description>
+                    <numberOfTI>5</numberOfTI>
+                    <transitions>Play Pause event triggered by the user,Default transition back to the initial state,Shutdown event triggered by the user,Transition to pair a new device,Connection error confirmed </transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>play_pause_triggerred</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>1059</xCoord>
+                    <yCoord>394</yCoord>
+                    <width>456</width>
+                    <height>150</height>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <polygon>0,0,456,0,456,150,0,150,0,0</polygon>
+                    <action>/* Call Bluetooth interface function for play/pause button 
+pressed to perform respective funtion on the hardware level */
+
+ble_play_trigger();</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Play Pause event triggered by the user,Default transition back to the initial state</transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>shutdown_event</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>1058</xCoord>
+                    <yCoord>589</yCoord>
+                    <width>350</width>
+                    <height>160</height>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <polygon>0,0,350,0,350,160,0,160,0,0</polygon>
+                    <action>/* Call bluetooth interface functions to shutdown 
+the device */
+
+enable_playback(false);
+clearCache();
+reset_connection();
+ble_shutdown();</action>
+                    <description></description>
+                    <numberOfTI>1</numberOfTI>
+                    <transitions>Shutdown event triggered by the user</transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>open_to_pair</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>1049</xCoord>
+                    <yCoord>794</yCoord>
+                    <width>480</width>
+                    <height>192</height>
+                    <backgroundColour>#55aa00</backgroundColour>
+                    <polygon>0,0,480,0,480,192,0,192,0,0</polygon>
+                    <action>bool local_conn_status = false;
+
+/* Let other devices know that earphones is available for pairing */
+broadcast_as_available();
+
+if (true == request_rx()){
+    unsigned long long int req_addr = getReqDevAddress();
+    local_conn_status = attempt_conn(req_addr);
+}</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Transition to pair a new device,Case when connection with the requestor device is successful</transitions>
+                </StateItem>
+                <StateItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>connected</label>
+                    <ifInitialState>0</ifInitialState>
+                    <initialCondition></initialCondition>
+                    <initialDescription></initialDescription>
+                    <xCoord>1063</xCoord>
+                    <yCoord>1084</yCoord>
+                    <width>342</width>
+                    <height>240</height>
+                    <backgroundColour>#55aaff</backgroundColour>
+                    <polygon>0,0,342,0,342,240,0,240,0,0</polygon>
+                    <action>static int err_counter = 0;
+if(false == _global_conn_status)
+{
+    _global_conn_status = true;
+    enable_playback(true);
+}
+
+/* Checking for error in connection here */
+if(true == error_occurred()){
+    err_counter++;
+}
+</action>
+                    <description></description>
+                    <numberOfTI>2</numberOfTI>
+                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                </StateItem>
+            </StateItems>
+            <TransitionItems number="6">
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Play Pause event triggered by the user</label>
+                    <condition>(btn_press_duration &lt;= PLAY_PAUSE_DELAY)</condition>
+                    <backgroundColour>#00aa00</backgroundColour>
+                    <xCoord>627.602</xCoord>
+                    <yCoord>142.642</yCoord>
+                    <midPos>816.5,474</midPos>
+                    <width>324</width>
+                    <height>80</height>
+                    <polygon>0,0,324,0,324,80,0,80,0,0</polygon>
+                    <startItem>init_power_interrupt</startItem>
+                    <endItem>play_pause_triggerred</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Default transition back to the initial state</label>
+                    <condition></condition>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <xCoord>658.305</xCoord>
+                    <yCoord>278.231</yCoord>
+                    <midPos>816.5,474</midPos>
+                    <width>280</width>
+                    <height>80</height>
+                    <polygon>0,0,280,0,280,80,0,80,0,0</polygon>
+                    <startItem>play_pause_triggerred</startItem>
+                    <endItem>init_power_interrupt</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Shutdown event triggered by the user</label>
+                    <condition>(btn_press_duration &lt;= SHUTDOWN_DELAY)</condition>
+                    <backgroundColour>#ff5500</backgroundColour>
+                    <xCoord>638.964</xCoord>
+                    <yCoord>639.905</yCoord>
+                    <midPos>789.5,574</midPos>
+                    <width>312</width>
+                    <height>80</height>
+                    <polygon>0,0,312,0,312,80,0,80,0,0</polygon>
+                    <startItem>init_power_interrupt</startItem>
+                    <endItem>shutdown_event</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Transition to pair a new device</label>
+                    <condition>(btn_press_duration &gt; SHUTDOWN_DELAY)</condition>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <xCoord>604.135</xCoord>
+                    <yCoord>851.705</yCoord>
+                    <midPos>817.5,684.5</midPos>
+                    <width>306</width>
+                    <height>80</height>
+                    <polygon>0,0,306,0,306,80,0,80,0,0</polygon>
+                    <startItem>init_power_interrupt</startItem>
+                    <endItem>open_to_pair</endItem>
+                    <description></description>
+                    <action></action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Case when connection with the requestor device is successful</label>
+                    <condition>(true == local_conn_status)</condition>
+                    <backgroundColour>#e5e7e9</backgroundColour>
+                    <xCoord>1520.02</xCoord>
+                    <yCoord>1153.27</yCoord>
+                    <midPos>1261.5,1047</midPos>
+                    <width>444</width>
+                    <height>80</height>
+                    <polygon>0,0,444,0,444,80,0,80,0,0</polygon>
+                    <startItem>open_to_pair</startItem>
+                    <endItem>connected</endItem>
+                    <description></description>
+                    <action>add_new_device(req_addr);</action>
+                </TransitionItem>
+                <TransitionItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <label>Connection error confirmed </label>
+                    <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
+                    <backgroundColour>#ff5500</backgroundColour>
+                    <xCoord>335.777</xCoord>
+                    <yCoord>1031.61</yCoord>
+                    <midPos>790,841.5</midPos>
+                    <width>300</width>
+                    <height>96</height>
+                    <polygon>0,0,300,0,300,96,0,96,0,0</polygon>
+                    <startItem>connected</startItem>
+                    <endItem>init_power_interrupt</endItem>
+                    <description></description>
+                    <action>_global_conn_status = false;
+enable_playback(false);</action>
+                </TransitionItem>
+            </TransitionItems>
+            <TextItems number="3">
+                <TextItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <xCoord>940.878</xCoord>
+                    <yCoord>18.4521</yCoord>
+                    <width>270</width>
+                    <height>88</height>
+                    <type>2</type>
+                    <backgroundColour>#ffffff</backgroundColour>
+                    <textColour>#000000</textColour>
+                    <polygon>0,0,270,0,270,88,0,88,0,0</polygon>
+                    <action>#define MIN_DEBOUNCE_PERIOD	500
+#define PLAY_PAUSE_DELAY	1000
+#define SHUTDOWN_DELAY	2000</action>
+                </TextItem>
+                <TextItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <xCoord>1228.56</xCoord>
+                    <yCoord>19.0119</yCoord>
+                    <width>240</width>
+                    <height>75</height>
+                    <type>1</type>
+                    <backgroundColour>#ffffff</backgroundColour>
+                    <textColour>#000000</textColour>
+                    <polygon>0,0,240,0,240,75,0,75,0,0</polygon>
+                    <action>#include &quot;ble_interface.h&quot;</action>
+                </TextItem>
+                <TextItem>
+                    <level>6</level>
+                    <parentId>2</parentId>
+                    <grandParentId>1</grandParentId>
+                    <xCoord>1505.4</xCoord>
+                    <yCoord>18.479</yCoord>
+                    <width>270</width>
+                    <height>75</height>
+                    <type>2</type>
+                    <backgroundColour>#ffffff</backgroundColour>
+                    <textColour>#000000</textColour>
+                    <polygon>0,0,270,0,270,75,0,75,0,0</polygon>
+                    <action>#define MAX_CONN_ERROR_RETRY	60</action>
                 </TextItem>
             </TextItems>
             <Process level="4" Nos="2" id="2" label="BLE Interface" parentId="1" grandParentId="1" xCoord="892" yCoord="265" width="300" height="250" shape="1" code="" description="" backgroundColour="#fec309" polygon="0,0,300,0,300,250,0,250,0,0"/>

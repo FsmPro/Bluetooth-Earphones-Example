@@ -1,15 +1,15 @@
 /** 
  * @file: stm_power_on.h 
  * @project:  
- * @version: 1.01 
+ * @version: 0.01 
  
  * @author: John Doe 
- * @organization: Google LLC 
- * @date: Mon Nov 2 2020 
+ * @organization: Google 
+ * @date: Sun May 7 2023 
  * @description: Automatic codification of state machine stm_power_on 
  * 
  * Number of States: 4
- * Number of Transitions: 5 
+ * Number of Transitions: 6 
  * Input variables: 0 
  * Output variables: 0 
  * local variables : 2 

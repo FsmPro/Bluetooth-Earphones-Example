@@ -1,15 +1,15 @@
 /** 
  * @file: stm_power_on.c 
  * @project:  
- * @version: 1.01 
+ * @version: 0.01 
  
  * @author: John Doe 
- * @organization: Google LLC 
- * @date: Mon Nov 2 2020 
+ * @organization: Google 
+ * @date: Sun May 7 2023 
  * @description: Automatic codification of state machine stm_power_on 
  * 
  * Number of States: 4
- * Number of Transitions: 5 
+ * Number of Transitions: 6 
  * Input variables: 0 
  * Output variables: 0 
  * local variables : 2 
@@ -113,18 +113,25 @@ static void stm_power_on0(void)
  */ 
 static void attempt_connection(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	/* Try to connect with the previously paired device */
 	bool connect_status = attempt_conn(prev_addr);
 	
 
-	/* -- case where transition is executed Case when the connection fails -- */
+	/* -- case where transition Case when the connection fails is executed  -- */
 	if false == connect_status
 	{
 		
 		/* -- state is changed -- */ 
 		state_stm_power_on = STATE_STM_POWER_ON_OPEN_TO_CONNECT;
+	}
+
+	/* -- case where transition Case when the connection succeeds is executed  -- */
+	else if true == connect_status
+	{
+		
+		/* -- state is changed -- */ 
+		state_stm_power_on = STATE_STM_POWER_ON_CONNECTED;
 	}
 
 }
@@ -134,13 +141,12 @@ static void attempt_connection(void)
  */ 
 static void power_on(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	/* Attempt to connect to a previously paired device */
 	
 	prev_addr = getPrevDevAddress();
 
-	/* -- case where transition is executed Case when the previously connected device is available for connection -- */
+	/* -- case where transition Case when the previously connected device is available for connection is executed  -- */
 	if (prev_addr != 0) && (true == isDeviceAvailable(prev_addr))
 	{
 		
@@ -148,7 +154,7 @@ static void power_on(void)
 		state_stm_power_on = STATE_STM_POWER_ON_ATTEMPT_CONNECTION;
 	}
 
-	/* -- case where transition is executed Case when no previously paired device was found -- */
+	/* -- case where transition Case when no previously paired device was found is executed  -- */
 	else if (prev_addr == 0) || (false == isDeviceAvailable(prev_addr))
 	{
 		
@@ -163,8 +169,7 @@ static void power_on(void)
  */ 
 static void open_to_connect(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	bool local_conn_status = false;
 	
 	/* Let other paired devices know that earphones is available for pairing */
@@ -175,7 +180,7 @@ static void open_to_connect(void)
 	    local_conn_status = attempt_conn(req_addr);
 	}
 
-	/* -- case where transition is executed Case when connection with the requestor device is successful -- */
+	/* -- case where transition Case when connection with the requestor device is successful is executed  -- */
 	if (true == local_conn_status)
 	{
 		
@@ -191,8 +196,7 @@ static void open_to_connect(void)
  */ 
 static void connected(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	static int err_counter = 0;
 	if(false == _global_conn_status)
 	{
@@ -200,13 +204,13 @@ static void connected(void)
 	    enable_playback(true);
 	}
 	
-	/* checking for error in connection here */
+	/* Checking for error in connection here */
 	if(true == error_occurred()){
 	    err_counter++;
 	}
 	
 
-	/* -- case where transition is executed Connection error confirmed  -- */
+	/* -- case where transition Connection error confirmed  is executed  -- */
 	if (err_counter > MAX_CONN_ERROR_RETRY)
 	{
 		_global_conn_status = false;

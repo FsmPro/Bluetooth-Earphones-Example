@@ -1,11 +1,11 @@
 /** 
  * @file: stm_power_interrupt.c 
  * @project:  
- * @version: 1.02 
+ * @version: 0.01 
  
  * @author: John Doe 
- * @organization: Google LLC 
- * @date: Sun Feb 7 2021 
+ * @organization: Google 
+ * @date: Sun May 7 2023 
  * @description: Automatic codification of state machine stm_power_interrupt 
  * 
  * Number of States: 5
@@ -119,14 +119,13 @@ static void stm_power_interrupt0(void)
  */ 
 static void init_power_interrupt(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	if((true == powerButtonStatus) && (getPressInterval() > MIN_DEBOUNCE_PERIOD)) 
 	{ 
 	    int btn_press_duration = getPressInterval();
 	}
 
-	/* -- case where transition is executed Play Pause event triggered by the user -- */
+	/* -- case where transition Play Pause event triggered by the user is executed  -- */
 	if (btn_press_duration <= PLAY_PAUSE_DELAY)
 	{
 		
@@ -134,7 +133,7 @@ static void init_power_interrupt(void)
 		state_stm_power_interrupt = STATE_STM_POWER_INTERRUPT_PLAY_PAUSE_TRIGGERRED;
 	}
 
-	/* -- case where transition is executed Shutdown event triggered by the user -- */
+	/* -- case where transition Shutdown event triggered by the user is executed  -- */
 	else if (btn_press_duration <= SHUTDOWN_DELAY)
 	{
 		
@@ -142,7 +141,7 @@ static void init_power_interrupt(void)
 		state_stm_power_interrupt = STATE_STM_POWER_INTERRUPT_SHUTDOWN_EVENT;
 	}
 
-	/* -- case where transition is executed Transition to pair a new device -- */
+	/* -- case where transition Transition to pair a new device is executed  -- */
 	else if (btn_press_duration > SHUTDOWN_DELAY)
 	{
 		
@@ -157,15 +156,14 @@ static void init_power_interrupt(void)
  */ 
 static void play_pause_triggerred(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	/* Call Bluetooth interface function for play/pause button 
 	pressed to perform respective funtion on the hardware level */
 	
 	ble_play_trigger();
 
-	/* -- case where transition is executed Default transition back to the initial state -- */
-	if 
+	/* -- case where transition Default transition back to the initial state is executed  -- */
+	if(true)
 	{
 		
 		/* -- state is changed -- */ 
@@ -179,8 +177,7 @@ static void play_pause_triggerred(void)
  */ 
 static void shutdown_event(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	/* Call bluetooth interface functions to shutdown 
 	the device */
 	
@@ -196,8 +193,7 @@ static void shutdown_event(void)
  */ 
 static void open_to_pair(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	bool local_conn_status = false;
 	
 	/* Let other devices know that earphones is available for pairing */
@@ -208,7 +204,7 @@ static void open_to_pair(void)
 	    local_conn_status = attempt_conn(req_addr);
 	}
 
-	/* -- case where transition is executed Case when connection with the requestor device is successful -- */
+	/* -- case where transition Case when connection with the requestor device is successful is executed  -- */
 	if (true == local_conn_status)
 	{
 		add_new_device(req_addr);
@@ -223,8 +219,7 @@ static void open_to_pair(void)
  */ 
 static void connected(void) 
 {
-
-	 /* -- code of the current state -- */ 
+	/* -- code of the current state -- */ 
 	static int err_counter = 0;
 	if(false == _global_conn_status)
 	{
@@ -238,7 +233,7 @@ static void connected(void)
 	}
 	
 
-	/* -- case where transition is executed Connection error confirmed  -- */
+	/* -- case where transition Connection error confirmed is executed  -- */
 	if (err_counter > MAX_CONN_ERROR_RETRY)
 	{
 		_global_conn_status = false;

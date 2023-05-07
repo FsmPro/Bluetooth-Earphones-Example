@@ -43,6 +43,7 @@ Bluetooth_Controller
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>0</id> 
                     <label>attempt_connection</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -58,12 +59,13 @@ bool connect_status = attempt_conn(prev_addr);
 </action>
                     <description></description>
                     <numberOfTI>3</numberOfTI>
-                    <transitions>Case when the previously connected device is available for connection,Case when the connection fails,Case when the connection succeeds</transitions>
+                    <transitions>0,1,5</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>1</id>
                     <label>power_on</label>
                     <ifInitialState>1</ifInitialState>
                     <initialCondition></initialCondition>
@@ -79,12 +81,13 @@ bool connect_status = attempt_conn(prev_addr);
 prev_addr = getPrevDevAddress();</action>
                     <description></description>
                     <numberOfTI>2</numberOfTI>
-                    <transitions>Case when the previously connected device is available for connection,Case when no previously paired device was found</transitions>
+                    <transitions>0,2</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>2</id>
                     <label>open_to_connect</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -106,12 +109,13 @@ if (true == request_rx()){
 }</action>
                     <description></description>
                     <numberOfTI>4</numberOfTI>
-                    <transitions>Case when the connection fails,Case when no previously paired device was found,Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                    <transitions>1,2,3,4</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>3</id>
                     <label>connected</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -136,7 +140,7 @@ if(true == error_occurred()){
 </action>
                     <description></description>
                     <numberOfTI>3</numberOfTI>
-                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed ,Case when the connection succeeds</transitions>
+                    <transitions>3,4,5</transitions>
                 </StateItem>
             </StateItems>
             <TransitionItems number="6">
@@ -144,6 +148,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>0</id>
                     <label>Case when the previously connected device is available for connection</label>
                     <condition>(prev_addr != 0) &amp;&amp; (true == isDeviceAvailable(prev_addr))</condition>
                     <backgroundColour>#ffaa00</backgroundColour>
@@ -153,8 +158,8 @@ if(true == error_occurred()){
                     <width>498</width>
                     <height>80</height>
                     <polygon>0,0,498,0,498,80,0,80,0,0</polygon>
-                    <startItem>power_on</startItem>
-                    <endItem>attempt_connection</endItem>
+                    <startItem>1</startItem>
+                    <endItem>0</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -162,6 +167,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>1</id>
                     <label>Case when the connection fails</label>
                     <condition>false == connect_status</condition>
                     <backgroundColour>#ff0000</backgroundColour>
@@ -171,8 +177,8 @@ if(true == error_occurred()){
                     <width>264</width>
                     <height>80</height>
                     <polygon>0,0,264,0,264,80,0,80,0,0</polygon>
-                    <startItem>attempt_connection</startItem>
-                    <endItem>open_to_connect</endItem>
+                    <startItem>0</startItem>
+                    <endItem>2</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -180,6 +186,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>2</id>
                     <label>Case when no previously paired device was found</label>
                     <condition>(prev_addr == 0) || (false == isDeviceAvailable(prev_addr))</condition>
                     <backgroundColour>#e5e7e9</backgroundColour>
@@ -189,8 +196,8 @@ if(true == error_occurred()){
                     <width>438</width>
                     <height>80</height>
                     <polygon>0,0,438,0,438,80,0,80,0,0</polygon>
-                    <startItem>power_on</startItem>
-                    <endItem>open_to_connect</endItem>
+                    <startItem>1</startItem>
+                    <endItem>2</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -198,6 +205,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>3</id>
                     <label>Case when connection with the requestor device is successful</label>
                     <condition>(true == local_conn_status)</condition>
                     <backgroundColour>#e5e7e9</backgroundColour>
@@ -207,8 +215,8 @@ if(true == error_occurred()){
                     <width>444</width>
                     <height>96</height>
                     <polygon>0,0,444,0,444,96,0,96,0,0</polygon>
-                    <startItem>open_to_connect</startItem>
-                    <endItem>connected</endItem>
+                    <startItem>2</startItem>
+                    <endItem>3</endItem>
                     <description></description>
                     <action>
 </action>
@@ -217,6 +225,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>4</id>
                     <label>Connection error confirmed </label>
                     <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
                     <backgroundColour>#ff0000</backgroundColour>
@@ -226,8 +235,8 @@ if(true == error_occurred()){
                     <width>300</width>
                     <height>96</height>
                     <polygon>0,0,300,0,300,96,0,96,0,0</polygon>
-                    <startItem>connected</startItem>
-                    <endItem>open_to_connect</endItem>
+                    <startItem>3</startItem>
+                    <endItem>2</endItem>
                     <description></description>
                     <action>_global_conn_status = false;
 enable_playback(false);</action>
@@ -236,6 +245,7 @@ enable_playback(false);</action>
                     <level>6</level>
                     <parentId>1</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>5</id>
                     <label>Case when the connection succeeds</label>
                     <condition>true == connect_status</condition>
                     <backgroundColour>#00aa00</backgroundColour>
@@ -245,8 +255,8 @@ enable_playback(false);</action>
                     <width>282</width>
                     <height>80</height>
                     <polygon>0,0,282,0,282,80,0,80,0,0</polygon>
-                    <startItem>attempt_connection</startItem>
-                    <endItem>connected</endItem>
+                    <startItem>0</startItem>
+                    <endItem>3</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -292,6 +302,7 @@ enable_playback(false);</action>
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>0</id>
                     <label>init_power_interrupt</label>
                     <ifInitialState>1</ifInitialState>
                     <initialCondition></initialCondition>
@@ -308,12 +319,13 @@ enable_playback(false);</action>
 }</action>
                     <description></description>
                     <numberOfTI>5</numberOfTI>
-                    <transitions>Play Pause event triggered by the user,Default transition back to the initial state,Shutdown event triggered by the user,Transition to pair a new device,Connection error confirmed </transitions>
+                    <transitions>0,1,2,3,4</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>1</id>
                     <label>play_pause_triggerred</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -330,12 +342,13 @@ pressed to perform respective funtion on the hardware level */
 ble_play_trigger();</action>
                     <description></description>
                     <numberOfTI>2</numberOfTI>
-                    <transitions>Play Pause event triggered by the user,Default transition back to the initial state</transitions>
+                    <transitions>0,1</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>2</id>
                     <label>shutdown_event</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -355,12 +368,13 @@ reset_connection();
 ble_shutdown();</action>
                     <description></description>
                     <numberOfTI>1</numberOfTI>
-                    <transitions>Shutdown event triggered by the user</transitions>
+                    <transitions>2</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>3</id>
                     <label>open_to_pair</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -382,12 +396,13 @@ if (true == request_rx()){
 }</action>
                     <description></description>
                     <numberOfTI>2</numberOfTI>
-                    <transitions>Transition to pair a new device,Case when connection with the requestor device is successful</transitions>
+                    <transitions>3,4</transitions>
                 </StateItem>
                 <StateItem>
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>4</id>
                     <label>connected</label>
                     <ifInitialState>0</ifInitialState>
                     <initialCondition></initialCondition>
@@ -412,7 +427,7 @@ if(true == error_occurred()){
 </action>
                     <description></description>
                     <numberOfTI>2</numberOfTI>
-                    <transitions>Case when connection with the requestor device is successful,Connection error confirmed </transitions>
+                    <transitions>3,4</transitions>
                 </StateItem>
             </StateItems>
             <TransitionItems number="6">
@@ -420,6 +435,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>0</id>
                     <label>Play Pause event triggered by the user</label>
                     <condition>(btn_press_duration &lt;= PLAY_PAUSE_DELAY)</condition>
                     <backgroundColour>#00aa00</backgroundColour>
@@ -429,8 +445,8 @@ if(true == error_occurred()){
                     <width>324</width>
                     <height>80</height>
                     <polygon>0,0,324,0,324,80,0,80,0,0</polygon>
-                    <startItem>init_power_interrupt</startItem>
-                    <endItem>play_pause_triggerred</endItem>
+                    <startItem>0</startItem>
+                    <endItem>1</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -438,6 +454,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>1</id>
                     <label>Default transition back to the initial state</label>
                     <condition></condition>
                     <backgroundColour>#e5e7e9</backgroundColour>
@@ -447,8 +464,8 @@ if(true == error_occurred()){
                     <width>280</width>
                     <height>80</height>
                     <polygon>0,0,280,0,280,80,0,80,0,0</polygon>
-                    <startItem>play_pause_triggerred</startItem>
-                    <endItem>init_power_interrupt</endItem>
+                    <startItem>1</startItem>
+                    <endItem>0</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -456,6 +473,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>2</id>
                     <label>Shutdown event triggered by the user</label>
                     <condition>(btn_press_duration &lt;= SHUTDOWN_DELAY)</condition>
                     <backgroundColour>#ff5500</backgroundColour>
@@ -465,8 +483,8 @@ if(true == error_occurred()){
                     <width>312</width>
                     <height>80</height>
                     <polygon>0,0,312,0,312,80,0,80,0,0</polygon>
-                    <startItem>init_power_interrupt</startItem>
-                    <endItem>shutdown_event</endItem>
+                    <startItem>0</startItem>
+                    <endItem>2</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -474,6 +492,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>3</id>
                     <label>Transition to pair a new device</label>
                     <condition>(btn_press_duration &gt; SHUTDOWN_DELAY)</condition>
                     <backgroundColour>#e5e7e9</backgroundColour>
@@ -483,8 +502,8 @@ if(true == error_occurred()){
                     <width>306</width>
                     <height>80</height>
                     <polygon>0,0,306,0,306,80,0,80,0,0</polygon>
-                    <startItem>init_power_interrupt</startItem>
-                    <endItem>open_to_pair</endItem>
+                    <startItem>0</startItem>
+                    <endItem>3</endItem>
                     <description></description>
                     <action></action>
                 </TransitionItem>
@@ -492,6 +511,7 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
+                    <id>4</id>
                     <label>Case when connection with the requestor device is successful</label>
                     <condition>(true == local_conn_status)</condition>
                     <backgroundColour>#e5e7e9</backgroundColour>
@@ -501,8 +521,8 @@ if(true == error_occurred()){
                     <width>444</width>
                     <height>80</height>
                     <polygon>0,0,444,0,444,80,0,80,0,0</polygon>
-                    <startItem>open_to_pair</startItem>
-                    <endItem>connected</endItem>
+                    <startItem>3</startItem>
+                    <endItem>4</endItem>
                     <description></description>
                     <action>add_new_device(req_addr);</action>
                 </TransitionItem>
@@ -510,7 +530,8 @@ if(true == error_occurred()){
                     <level>6</level>
                     <parentId>2</parentId>
                     <grandParentId>1</grandParentId>
-                    <label>Connection error confirmed </label>
+                    <id>5</id>
+                    <label>Connection error confirmed</label>
                     <condition>(err_counter &gt; MAX_CONN_ERROR_RETRY)</condition>
                     <backgroundColour>#ff5500</backgroundColour>
                     <xCoord>335.777</xCoord>
@@ -519,8 +540,8 @@ if(true == error_occurred()){
                     <width>300</width>
                     <height>96</height>
                     <polygon>0,0,300,0,300,96,0,96,0,0</polygon>
-                    <startItem>connected</startItem>
-                    <endItem>init_power_interrupt</endItem>
+                    <startItem>4</startItem>
+                    <endItem>0</endItem>
                     <description></description>
                     <action>_global_conn_status = false;
 enable_playback(false);</action>
